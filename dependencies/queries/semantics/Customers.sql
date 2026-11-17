@@ -1,0 +1,30 @@
+SELECT
+    customer_id,
+    locale,
+    salutation,
+    first_name,
+    last_name,
+    email,
+    phone,
+    phone2,
+    sms_marketing,
+    email_marketing,
+    created_by_crm,
+    DATETIME(customer_created_at, cmt.country_timezone) as customer_created_at,
+    customer_created_by_id ,
+    customer_created_by,
+    DATETIME(customer_last_modified, cmt.country_timezone) as customer_last_modified,
+    customer_last_modified_by_id,
+    customer_last_modified_by,
+    DATETIME(deleted_at, cmt.country_timezone) as deleted_at,
+    deleted_by_id,
+    deleted_by,
+    country_id,
+    DATETIME(data_privacy_consent_at, cmt.country_timezone) as data_privacy_consent_at,
+    DATETIME(digital_communication_consent_at, cmt.country_timezone) as digital_communication_consent_at,
+    city,
+    postcode,
+    customer_address
+FROM `{{params.project_name}}.staging.Customers`
+INNER JOIN `{{params.project_name}}.staging.CountryMetadata` cmt using (country_id)
+where customer_last_modified >= '{{params.start_ts}}' and customer_last_modified < '{{params.end_ts}}'

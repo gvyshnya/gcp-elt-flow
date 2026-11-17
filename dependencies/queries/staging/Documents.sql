@@ -1,0 +1,27 @@
+SELECT
+d.id as 'document_id',
+d.reference as 'reference_id',
+d.comment as 'document_comment', 
+d.fileId as 'file_id',
+d.fileType as 'file_type', 
+d.category as 'document_category',
+d.visibility as 'document_visibility',
+d.entity as 'document_entity',
+d.uploader as 'uploader',
+d.modifiedBy as 'modified_by',
+d.fileName as 'file_name',
+d.fileSize as 'file_size',
+UNIX_TIMESTAMP(d.createdAt) as 'created_at', 
+UNIX_TIMESTAMP(d.updatedAt) as 'updated_at', 
+UNIX_TIMESTAMP(d.deletedAt) as 'deleted_at', 
+d.status as 'document_status',
+d.createdById as 'created_by',
+d.createdByName as 'created_by_name',
+d.deletedById as 'deleted_by',
+d.updatedByName as 'updated_by_name',
+d.updatedById as 'updated_by',
+d.deletedByName as 'deleted_by_name', 
+d.printPreferenceId as 'print_reference_id',
+if(d.isPublic=1, true, false) as 'is_public'
+FROM fcgDocument.document d
+where d.updatedAt >= '{{params.start_ts}}' and d.updatedAt < '{{params.end_ts}}'

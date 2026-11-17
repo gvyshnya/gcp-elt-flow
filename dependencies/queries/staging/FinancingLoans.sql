@@ -1,0 +1,30 @@
+SELECT 
+l.id::"varchar" AS loan_id,
+l."customerId"::"varchar" AS financing_customer_id,
+l."contractId"::"varchar" AS contract_id,
+l."carId"::"varchar" AS car_id,
+l.status::"varchar" AS status,
+l.amount AS amount,
+l.fees::"varchar" AS fees,
+l."dueAt" AS due_at,
+l."settledAt" AS settled_at,
+l."disbursedAt" AS disbursed_at ,
+l."createdAt" AS created_at,
+l."updatedAt" AS updated_at,
+l."deletedAt" AS deleted_at,
+l."createdByName" AS created_by_name,
+l."createdById"::"varchar" AS created_by_id,
+l."updatedByName" AS updated_by_name, 
+l."updatedById"::"varchar" AS updated_by_id,
+l."deletedByName" AS deleted_by_name, 
+l."deletedById"::"varchar" AS deleted_by_id,
+l.penalty AS penalty,
+l."salePrice" AS sale_price,
+l."paidInterest" AS paid_interest,
+l."accruedInterest" AS accrued_interest,
+l."amountDue" AS amount_due,
+l."carData"::"varchar" AS car_data,
+c.country as country_id
+FROM "fcgFinancing"."public"."loan" l
+INNER JOIN "fcgFinancing"."public"."customer" c ON l."customerId" = c.id   
+WHERE l."updatedAt" >= '{{params.start_ts}}' AND l."updatedAt" < '{{params.end_ts}}'

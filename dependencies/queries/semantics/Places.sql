@@ -1,0 +1,30 @@
+SELECT
+    place_id,
+    country_id,
+    city ,
+    place_location,
+    place,
+    bi_mapping,
+    address1,
+    address2,
+    zipcode,
+    timezone,
+    timezone_offset,
+    lat,
+    lon,
+    is_active,
+    is_inspection_center,
+    is_purchase_location,
+    is_selling_location,
+    is_current_location,
+    is_document_location,
+    is_pickup_location,
+    inspection_center_id,
+    region,
+    meta_info,
+    DATETIME(place_created, cmt.country_timezone) as place_created,
+    DATETIME(place_last_modified, cmt.country_timezone) as place_last_modified,
+    DATETIME(deleted_at, cmt.country_timezone) as deleted_at
+FROM `{{params.project_name}}.staging.Places`
+INNER JOIN `{{params.project_name}}.staging.CountryMetadata` cmt USING(country_id)
+where place_last_modified >= '{{params.start_ts}}' /* and place_last_modified < '{{params.end_ts}}' */

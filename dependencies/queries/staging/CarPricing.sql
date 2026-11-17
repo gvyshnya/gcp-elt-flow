@@ -1,0 +1,25 @@
+SELECT
+cp.id as car_pricing_id,
+cp.carId as car_id,
+cp.type as type,
+cp.amount as amount,
+cp.subtype as subtype,
+cp.comments as comments,
+cp.country as country_id,
+cp.vatPercentage as vat_percentage,
+cp.vat as vat,
+UNIX_TIMESTAMP(cp.createdAt) as created_at,
+UNIX_TIMESTAMP(cp.updatedAt) as updated_at,
+UNIX_TIMESTAMP(cp.deletedAt) as deleted_at,
+cp.createdByEmail as created_by_email,
+cp.createdById as created_by_id,
+cp.updatedById as updated_by_id,
+cp.updatedByEmail as updated_by_email,
+cp.deletedById as deleted_by_id,
+cp.createdByName as created_by,
+cp.updatedByName as updated_by,
+cp.deletedByName as deleted_by,
+cp.referenceId as reference_id,
+cp.entity as entity
+FROM fcgOrder.carPricing cp
+where cp.updatedAt >= '{{params.start_ts}}' and cp.updatedAt < '{{params.end_ts}}'
